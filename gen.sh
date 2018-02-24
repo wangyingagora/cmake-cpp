@@ -9,5 +9,6 @@ echo 'start buiding project...'
 cmake ..
 make
 
+mv src/main ./
 echo 'Running the app'
 ./main
