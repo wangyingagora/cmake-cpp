@@ -4,9 +4,15 @@
 
 #include "base.hpp"
 
+template<typename ...Types>
+class Tuple {
+public:
+	static constexpr std::size_t len = sizeof...(Types);
+};
+
 int main(int argc, char* argv[])
 {
-	float n = 3.0;
-	print(n);
+	std::cout << Tuple<int>::len << std::endl;
+	std::cout << Tuple<int, int, int>::len << std::endl;
 	return 0;
 }
