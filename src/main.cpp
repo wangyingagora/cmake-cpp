@@ -1,8 +1,23 @@
+#include<typeinfo>
+#include<type_traits>
 #include<memory>
 #include<iostream>
 #include<vector>
 
 #include "base.hpp"
+
+template<typename T>
+void f(T)
+{}
+
+template<typename A>
+void printParameterType(void (*)(A))
+{
+	std::cout << "Parameter type: " << typeid(A).name() << std::endl;
+	std::cout << "- is int: " << std::is_same<A, int>::value << std::endl;
+	std::cout << "- is const: " << std::is_const<A>::value << std::endl;
+	std::cout << "- is pointer: " << std::is_pointer<A>::value << std::endl;
+}
 
 template<typename ...Types>
 class Tuple {
@@ -52,5 +67,10 @@ int main(int argc, char* argv[])
 	char name[] = "templates";
 	int len = sizeof(name) - 1;
 	std::cout << "The average of char value is: " << accum(name, name + len) / len << std::endl;
+
+	printParameterType(&f<int>);
+	printParameterType(&f<int const>);
+	printParameterType(&f<int[7]>);
+	printParameterType(&f<int(int)>);
 	return 0;
 }
